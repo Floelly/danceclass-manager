@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Class Manager - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gradient login-page">
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6 col-lg-5">
+                <div class="login-card card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <h1 class="h3 fw-bold text-primary">💃 Dance Class Manager</h1>
+                            <p class="text-muted">Tanzschul-Verwaltungssystem</p>
+                        </div>
+
+                        <!-- Login Form -->
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-Mail Adresse</label>
+                                <input 
+                                    type="email" 
+                                    class="form-control form-control-lg" 
+                                    id="email" 
+                                    placeholder="name@example.com"
+                                    required
+                                >
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Passwort</label>
+                                <input 
+                                    type="password" 
+                                    class="form-control form-control-lg" 
+                                    id="password" 
+                                    placeholder="••••••••"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Error Message -->
+                            <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                                <strong>Fehler:</strong> <span id="errorMessage"></span>
+                            </div>
+
+                            <!-- Loading Spinner -->
+                            <div id="loadingSpinner" class="spinner-border spinner-border-sm d-none" role="status">
+                                <span class="visually-hidden">Wird geladen...</span>
+                            </div>
+
+                            <!-- Login Button -->
+                            <button 
+                                type="submit" 
+                                class="btn btn-primary btn-lg w-100 fw-bold"
+                                id="loginBtn"
+                            >
+                                Anmelden
+                            </button>
+                        </form>
+
+                        <!-- Test Credentials Info -->
+                        <hr class="my-4">
+                        <div class="test-credentials p-3 bg-light rounded border-start border-info">
+                            <small class="text-muted d-block mb-2"><strong>Test-Anmeldedaten (MVP):</strong></small>
+                            <small class="d-block">
+                                <strong>Lehrer:</strong> lehrer@tanzschule-muenchen.de
+                            </small>
+                            <small class="d-block">
+                                <strong>Schüler:</strong> schueler1@example.com
+                            </small>
+                            <small class="d-block text-muted">
+                                Passwort: password123
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center mt-4 text-muted">
+                    <small>Dance Class Manager v1.0.0 | Cloud-basiertes System</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorAlert = document.getElementById('errorAlert');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            // UI States
+            loginBtn.disabled = true;
+            loadingSpinner.classList.remove('d-none');
+            errorAlert.classList.add('d-none');
+
+            try {
+                const response = await apiClient.login(email, password);
+                
+                if (response.ok) {
+                    const user = await response.json();
+                    
+                    // Store user info in session
+                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    // Redirect based on role
+                    if (user.role === 'TEACHER') {
+                        window.location.href = 'teacher-dashboard.html';
+                    } else if (user.role === 'STUDENT') {
+                        window.location.href = 'student-dashboard.html';
+                    } else {
+                        window.location.href = 'student-dashboard.html'; // Default
+                    }
+                } else {
+                    const errorData = await response.text();
+                    showError(errorData || 'Login fehlgeschlagen');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Verbindung zum Server fehlgeschlagen. Bitte überprüfen Sie die Backend-Verbindung.');
+            } finally {
+                loginBtn.disabled = false;
+                loadingSpinner.classList.add('d-none');
+            }
+        });
+
+        function showError(message) {
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorAlert.classList.remove('d-none');
+        }
+
+        // REMOVED: The auto-redirect on page load that caused the loop!
+        // Only redirect if explicitly logged in (form submission)
+    </script>
+</body>
+</html>

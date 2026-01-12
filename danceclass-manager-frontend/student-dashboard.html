@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schüler-Dashboard - Dance Class Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">💃 Dance Class Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link text-white">
+                            Hallo, <strong id="userFullName"></strong>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light btn-sm ms-2" id="logoutBtn">
+                            Abmelden
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-5">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1 class="h2 fw-bold">🎓 Meine Kurse</h1>
+                <p class="text-muted">Übersicht deiner angemeldeten Tanzklassen</p>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4" id="courseTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link active" 
+                    id="enrolled-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#enrolled" 
+                    type="button"
+                    role="tab"
+                >
+                    📝 Aktive Kurse
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link" 
+                    id="alternatives-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#alternatives" 
+                    type="button"
+                    role="tab"
+                >
+                    🔄 Ausweichtermine
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="courseTabContent">
+            <!-- Enrolled Courses -->
+            <div class="tab-pane fade show active" id="enrolled" role="tabpanel">
+                <div class="row" id="enrolledCoursesContainer">
+                    <div class="col-12">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Wird geladen...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alternative Sessions -->
+            <div class="tab-pane fade" id="alternatives" role="tabpanel">
+                <div class="alert alert-info">
+                    📌 Ausweichtermine werden hier angezeigt, falls dein regulärer Kurs ausfällt.
+                </div>
+                <div id="alternativeSessionsContainer" class="list-group">
+                    <div class="list-group-item text-muted">Keine Ausweichtermine verfügbar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/student.js"></script>
+</body>
+</html>
