@@ -9,8 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -33,11 +36,26 @@ public class AuthController {
         Optional<User> user = authService.authenticate(request.getEmail(), request.getPassword());
 
         if (user.isPresent()) {
-            session.setAttribute("userId", user.get().getId());
-            session.setAttribute("userRole", user.get().getRole().name());
+            User authenticatedUser = user.get();
+
+            // Create authentication token
+            UsernamePasswordAuthenticationToken authToken =
+                    new UsernamePasswordAuthenticationToken(
+                            authenticatedUser.getId(),
+                            authenticatedUser.getPasswordHash(),
+                            new ArrayList<>()
+                    );
+
+            // Set in SecurityContext
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+            // Store in session (for session persistence)
+            session.setAttribute("userId", authenticatedUser.getId());
+            session.setAttribute("userRole", authenticatedUser.getRole().name());
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
             log.info("User logged in successfully: {}", request.getEmail());
-            return ResponseEntity.ok(new UserResponse(user.get()));
+            return ResponseEntity.ok(new UserResponse(authenticatedUser));
         }
 
         log.warn("Login failed for email: {}", request.getEmail());
@@ -46,6 +64,7 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
+        SecurityContextHolder.clearContext();
         session.invalidate();
         log.info("User logged out");
         return ResponseEntity.ok("Logged out successfully");
@@ -57,8 +76,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not authenticated");
         }
 
-        // Spring Security sets the principal, use it to get user details
-        return ResponseEntity.ok("User authenticated");
+        return ResponseEntity.ok("User authenticated: " + principal.getName());
     }
 }
-
