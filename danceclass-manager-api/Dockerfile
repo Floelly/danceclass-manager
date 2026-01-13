@@ -12,7 +12,7 @@ WORKDIR /app
 # Kostenoptimierung: Minimal Java runtime
 ENV JAVA_OPTS="-XX:+UseG1GC -XX:MaxRAMPercentage=75 -Dspring.profiles.active=cloud"
 
-COPY --from=builder /build/target/dance-class-manager-1.0.0.jar app.jar
+COPY --from=builder /build/target/*.jar app.jar
 
 EXPOSE 8080
 
