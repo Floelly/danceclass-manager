@@ -17,6 +17,17 @@ resource "google_compute_subnetwork" "vpc_subnetwork" {
   description   = "Subnet for VPC Access Connector (Connection Cloud Run -> Cloud SQL)"
   network       = google_compute_network.vpc_network.id
   ip_cidr_range = var.subnet_cidr
+}
+
+# vpc access connector
+resource "google_vpc_access_connector" "connector" {
+  name = var.vpc_access_connector_name
+  subnet {
+    name = google_compute_subnetwork.vpc_subnetwork.name
+  }
+  min_instances = 2
+  max_instances = 5
+}
 
   depends_on = [google_compute_network.vpc_network]
 }

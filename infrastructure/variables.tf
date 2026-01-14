@@ -2,7 +2,7 @@
 variable "project_id" {
   description = "GCP Project ID"
   type        = string
-  default     = "dance-class-manager-prod-eu"
+  default     = "dance-class-manager"
 }
 
 variable "region" {
@@ -33,6 +33,11 @@ variable "subnet_cidr" {
   default     = "10.8.0.0/28"
 }
 
+variable "vpc_access_connector_name" {
+  description = "Name of VPC access connector"
+  type        = string
+  default     = "vpc-access-connector"
+}
 
 
 
