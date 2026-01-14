@@ -15,5 +15,13 @@ provider "google" {
   region  = var.region
 }
 
+resource "google_project_service" "enabled_apis" {
+  for_each = toset(var.gcp_services)
+
+  service = each.key
+
+  # disable_on_destroy = false # for convenience
+}
+
 # Data Source for output
 data "google_project" "project" {}

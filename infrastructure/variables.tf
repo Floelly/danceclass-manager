@@ -11,6 +11,15 @@ variable "region" {
   default     = "europe-west3"
 }
 
+variable "gcp_services" {
+  type = list(string)
+  default = [
+    "compute.googleapis.com",
+    "vpcaccess.googleapis.com",
+    "servicenetworking.googleapis.com",
+  ]
+}
+
 # Netzwerk
 variable "vpc_name" {
   description = "VPC Name"
