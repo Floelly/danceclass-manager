@@ -35,12 +35,6 @@ gcloud auth application-default login
 ```
 Browser öffnet und dann mit GCP-User-Account einloggen und Rechte vergeben.
 
-### 2. **APIs aktivieren (einmalig pro account)**
-
-```bash
-gcloud services enable compute.googleapis.com sqladmin.googleapis.com run.googleapis.com storage.googleapis.com servicenetworking.googleapis.com cloudbuild.googleapis.com cloudresourcemanager.googleapis.com
-```
-
 ### 3. **Variablen anpassen (einmalig auf gcp setup abgestimmt)**
 
 In `*infrastructure/terraform.tfvars.example` liegen Beispielwerte. Kopieren:
