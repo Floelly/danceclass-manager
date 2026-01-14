@@ -11,9 +11,18 @@ variable "region" {
   default     = "europe-west3"
 }
 
+# Netzwerk
+variable "vpc_name" {
+  description = "VPC Name"
+  type        = string
+  default     = "dance-class-manager-vpc"
+}
 
-
-
+variable "subnet_cidr" {
+  description = "Subnet CIDR Range"
+  type        = string
+  default     = "10.8.0.0/28"
+}
 
 
 
@@ -24,19 +33,6 @@ variable "region" {
 #   description = "Availability Zones für Multi-Zone Setup"
 #   type        = list(string)
 #   default     = ["europe-west3-a", "europe-west3-b", "europe-west3-c"]
-# }
-
-# # Netzwerk
-# variable "vpc_name" {
-#   description = "VPC Name"
-#   type        = string
-#   default     = "dance-class-manager-vpc"
-# }
-
-# variable "subnet_cidr" {
-#   description = "Subnet CIDR Range"
-#   type        = string
-#   default     = "10.0.0.0/24"
 # }
 
 # # Database
