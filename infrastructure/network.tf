@@ -37,6 +37,10 @@ resource "google_compute_global_address" "cloudsql_psa_range" {
   prefix_length = 16
 
   network = google_compute_network.vpc_network.id
+
+  depends_on = [
+    google_compute_subnetwork.vpc_subnetwork
+  ]
 }
 
 # VPC peering
