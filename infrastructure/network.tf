@@ -29,5 +29,21 @@ resource "google_vpc_access_connector" "connector" {
   max_instances = 5
 }
 
-  depends_on = [google_compute_network.vpc_network]
+# blocking an ip range (for VPC peering with Cloud SQL net)
+resource "google_compute_global_address" "cloudsql_psa_range" {
+  name          = "test"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+
+  network = google_compute_network.vpc_network.id
+}
+
+# VPC peering
+resource "google_service_networking_connection" "cloudsql_private_vpc_connection" {
+  network = google_compute_network.vpc_network.id
+  service = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [
+    google_compute_global_address.cloudsql_psa_range.name
+  ]
 }
