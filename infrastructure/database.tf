@@ -4,8 +4,8 @@ resource "google_sql_database_instance" "database" {
   settings {
     tier              = var.database_tier
     availability_type = "REGIONAL"
-    # deletion_protection_enabled = true # for production like safety
-    # retain_backups_on_delete = true # for production like safety
+    deletion_protection_enabled = false # 'true' for production like safety
+    retain_backups_on_delete = false # 'true' for production like safety
     backup_configuration {
       enabled = true
       binary_log_enabled = true
