@@ -120,3 +120,15 @@ resource "google_cloud_run_v2_service" "backend_service" {
     google_secret_manager_secret_iam_member.cloud_run_db_user_access
   ]
 }
+
+# backand public machen
+data "google_iam_policy" "public" {
+  binding {
+    role    = "roles/run.invoker"
+    members = ["allUsers"]
+  }
+}
+resource "google_cloud_run_service_iam_policy" "public_backend" {
+  service = google_cloud_run_v2_service.backend_service.name
+  policy_data = data.google_iam_policy.public.policy_data
+}
