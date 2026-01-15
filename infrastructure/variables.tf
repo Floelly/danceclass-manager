@@ -17,6 +17,7 @@ variable "gcp_services" {
     "compute.googleapis.com",
     "vpcaccess.googleapis.com",
     "servicenetworking.googleapis.com",
+    "secretmanager.googleapis.com",
   ]
 }
 
