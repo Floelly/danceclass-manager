@@ -39,6 +39,38 @@ variable "vpc_access_connector_name" {
   default     = "vpc-access-connector"
 }
 
+# Database
+variable "database_name" {
+  description = "Cloud SQL Database Name"
+  type        = string
+  default     = "dance_class_manager"
+}
+
+variable "database_user" {
+  description = "Cloud SQL Database User"
+  type        = string
+  default     = "dance_class_manager_api"
+  sensitive   = true
+}
+
+variable "vpc_connector_subnet_mask" {
+  description = "Subnet mask for SQL user host restriction"
+  type        = string
+  default     = "10.8.0.%"
+}
+
+variable "database_version" {
+  description = "MySQL Version"
+  type        = string
+  default     = "8_0"
+}
+
+variable "database_tier" {
+  description = "Cloud SQL Tier (kostenoptimiert)"
+  type        = string
+  default     = "db-f1-micro" # "db-g1-small" for more speed but more costs
+}
+
 
 
 
@@ -49,39 +81,7 @@ variable "vpc_access_connector_name" {
 #   default     = ["europe-west3-a", "europe-west3-b", "europe-west3-c"]
 # }
 
-# # Database
-# variable "database_name" {
-#   description = "Cloud SQL Database Name"
-#   type        = string
-#   default     = "dance_class_manager"
-# }
-
-# variable "database_user" {
-#   description = "Cloud SQL Database User"
-#   type        = string
-#   default     = "dance_class_manager_api"
-#   sensitive   = true
-# }
-
-# variable "database_password" {
-#   description = "Cloud SQL Database Password"
-#   type        = string
-#   sensitive   = true
-# }
-
-# variable "database_version" {
-#   description = "MySQL Version"
-#   type        = string
-#   default     = "8.0"
-# }
-
 # # Kostenoptimierung: Minimale Ressourcen für MVP
-# variable "database_tier" {
-#   description = "Cloud SQL Tier (kostenoptimiert)"
-#   type        = string
-#   default     = "db-f1-micro"  # 0.6 CPU, 1.7GB RAM = $12-15/Monat
-# }
-
 # variable "database_storage_gb" {
 #   description = "Cloud SQL Storage in GB"
 #   type        = number
