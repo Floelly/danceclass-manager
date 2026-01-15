@@ -2,12 +2,12 @@
 resource "google_sql_database_instance" "database" {
   database_version = "MYSQL_${var.database_version}"
   settings {
-    tier              = var.database_tier
-    availability_type = "REGIONAL"
+    tier                        = var.database_tier
+    availability_type           = "REGIONAL"
     deletion_protection_enabled = false # 'true' for production like safety
-    retain_backups_on_delete = false # 'true' for production like safety
+    retain_backups_on_delete    = false # 'true' for production like safety
     backup_configuration {
-      enabled = true
+      enabled            = true
       binary_log_enabled = true
     }
     ip_configuration {
