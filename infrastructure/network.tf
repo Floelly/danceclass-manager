@@ -31,7 +31,7 @@ resource "google_vpc_access_connector" "connector" {
 
 # blocking an ip range (for VPC peering with Cloud SQL net)
 resource "google_compute_global_address" "cloudsql_psa_range" {
-  name          = "test"
+  name          = "cloud-sql-peering-block"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   prefix_length = 16
@@ -50,4 +50,7 @@ resource "google_service_networking_connection" "cloudsql_private_vpc_connection
   reserved_peering_ranges = [
     google_compute_global_address.cloudsql_psa_range.name
   ]
+  
+  deletion_policy = "ABANDON"
+  update_on_creation_fail = true
 }

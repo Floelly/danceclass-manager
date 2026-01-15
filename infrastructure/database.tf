@@ -17,6 +17,7 @@ resource "google_sql_database_instance" "database" {
       ssl_mode        = "ENCRYPTED_ONLY"
     }
   }
+  deletion_protection = false # only for terraform
 
   depends_on = [google_service_networking_connection.cloudsql_private_vpc_connection]
 }
