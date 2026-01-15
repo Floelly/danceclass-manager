@@ -78,7 +78,7 @@ variable "database_tier" {
 variable "cloud_run_memory" {
   description = "Cloud Run Memory (kostenoptimiert)"
   type        = string
-  default     = "512Mi"  # 512MB = günstig
+  default     = "512Mi" # 512MB = günstig
 }
 
 variable "cloud_run_cpu" {
@@ -90,7 +90,7 @@ variable "cloud_run_cpu" {
 variable "cloud_run_min_instances" {
   description = "Minimum Cloud Run Instances (Keep-Warm)"
   type        = number
-  default     = 0  # Kostenoptimiert: Nur bei Bedarf
+  default     = 0 # Kostenoptimiert: Nur bei Bedarf
 }
 
 variable "cloud_run_max_instances" {

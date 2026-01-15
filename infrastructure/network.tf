@@ -50,7 +50,7 @@ resource "google_service_networking_connection" "cloudsql_private_vpc_connection
   reserved_peering_ranges = [
     google_compute_global_address.cloudsql_psa_range.name
   ]
-  
-  deletion_policy = "ABANDON"
+
+  deletion_policy         = "ABANDON"
   update_on_creation_fail = true
 }

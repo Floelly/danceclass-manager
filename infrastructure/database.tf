@@ -48,7 +48,7 @@ resource "google_secret_manager_secret" "db_user" {
   replication {
     auto {}
   }
-  depends_on = [ google_project_service.enabled_apis ]
+  depends_on = [google_project_service.enabled_apis]
 }
 resource "google_secret_manager_secret_version" "db_user_version" {
   secret      = google_secret_manager_secret.db_user.id
@@ -61,7 +61,7 @@ resource "google_secret_manager_secret" "db_password" {
   replication {
     auto {}
   }
-  depends_on = [ google_project_service.enabled_apis ]
+  depends_on = [google_project_service.enabled_apis]
 }
 resource "google_secret_manager_secret_version" "db_password_version" {
   secret      = google_secret_manager_secret.db_password.id
