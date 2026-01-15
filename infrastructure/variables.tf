@@ -18,6 +18,8 @@ variable "gcp_services" {
     "vpcaccess.googleapis.com",
     "servicenetworking.googleapis.com",
     "secretmanager.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "run.googleapis.com",
   ]
 }
 
@@ -72,6 +74,31 @@ variable "database_tier" {
   default     = "db-f1-micro" # "db-g1-small" for more speed but more costs
 }
 
+# Cloud Run
+variable "cloud_run_memory" {
+  description = "Cloud Run Memory (kostenoptimiert)"
+  type        = string
+  default     = "512Mi"  # 512MB = günstig
+}
+
+variable "cloud_run_cpu" {
+  description = "Cloud Run CPU"
+  type        = string
+  default     = "1"
+}
+
+variable "cloud_run_min_instances" {
+  description = "Minimum Cloud Run Instances (Keep-Warm)"
+  type        = number
+  default     = 0  # Kostenoptimiert: Nur bei Bedarf
+}
+
+variable "cloud_run_max_instances" {
+  description = "Maximum Cloud Run Instances (Auto-Scaling)"
+  type        = number
+  default     = 5
+}
+
 
 
 
@@ -87,31 +114,6 @@ variable "database_tier" {
 #   description = "Cloud SQL Storage in GB"
 #   type        = number
 #   default     = 10
-# }
-
-# # Cloud Run
-# variable "cloud_run_memory" {
-#   description = "Cloud Run Memory (kostenoptimiert)"
-#   type        = string
-#   default     = "512Mi"  # 512MB = günstig
-# }
-
-# variable "cloud_run_cpu" {
-#   description = "Cloud Run CPU"
-#   type        = string
-#   default     = "0.5"
-# }
-
-# variable "cloud_run_min_instances" {
-#   description = "Minimum Cloud Run Instances (Keep-Warm)"
-#   type        = number
-#   default     = 0  # Kostenoptimiert: Nur bei Bedarf
-# }
-
-# variable "cloud_run_max_instances" {
-#   description = "Maximum Cloud Run Instances (Auto-Scaling)"
-#   type        = number
-#   default     = 5
 # }
 
 # variable "backend_source_dir" {
