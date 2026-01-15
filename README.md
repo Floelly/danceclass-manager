@@ -77,3 +77,17 @@ terraform apply
 cd infrastructure
 terraform destroy
 ```
+
+
+# NOTES:
+
+1. docker image bauen und pushen:
+```bash
+$PROJECT_ID = "dance-class-manager-eu" # replace with correct project id
+docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:v0.0.1 ./backend/
+docker push europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:v0.0.1
+docker tag europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:v0.0.1 europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
+docker push europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
+```
+2. cloud run image auf das backend:latest switchen
+3. TADAAAA backend erreichbar.
