@@ -2,7 +2,7 @@
 variable "project_id" {
   description = "GCP Project ID"
   type        = string
-  default     = "dance-class-manager"
+  default     = "dance-class-manager-eu"
 }
 
 variable "region" {
