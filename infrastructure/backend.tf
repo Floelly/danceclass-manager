@@ -119,6 +119,17 @@ resource "google_cloud_run_v2_service" "backend_service" {
     google_secret_manager_secret_iam_member.cloud_run_db_password_access,
     google_secret_manager_secret_iam_member.cloud_run_db_user_access
   ]
+
+  lifecycle {
+    ignore_changes = [
+      template[0].containers[0].image,
+      template[0].revision,
+      template[0].containers[0].env,
+      template[0].containers[0].name,
+      client,
+      client_version
+    ]
+  }
 }
 
 # backand public machen
