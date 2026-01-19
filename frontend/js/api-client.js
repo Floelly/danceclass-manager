@@ -3,7 +3,7 @@ const apiClient = {
     // Während Production: /api (proxy)
     BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:8080/api'
-        : '/api',
+        : 'https://dance-class-manager-eu-backend-service-519149468224.europe-west3.run.app/api',
 
     // Helper: Fetch with credentials
     async fetchWithAuth(endpoint, options = {}) {
