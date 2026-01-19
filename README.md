@@ -84,9 +84,9 @@ terraform destroy
 1. docker image bauen und pushen:
 ```bash
 $PROJECT_ID = "dance-class-manager-eu" # replace with correct project id
-docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:v0.0.1 ./backend/
-docker push europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:v0.0.1
-docker tag europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:v0.0.1 europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
+$BACKEND_VERSION = "v0.0.3"
+docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:$BACKEND_VERSION ./backend/
+docker tag europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:$BACKEND_VERSION europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
 docker push europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
 ```
 2. cloud run image auf das backend:latest switchen
