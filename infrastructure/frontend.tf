@@ -7,11 +7,11 @@ resource "google_storage_bucket" "frontend" {
   versioning {
     enabled = true
   }
-  
+
   website {
     main_page_suffix = "index.html"
   }
-  
+
   uniform_bucket_level_access = true
   depends_on                  = [google_project_service.enabled_apis]
 }
