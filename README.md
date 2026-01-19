@@ -80,14 +80,24 @@ terraform destroy
 
 
 # NOTES:
-
+## Backend Deploy:
 1. docker image bauen und pushen:
 ```bash
 $PROJECT_ID = "dance-class-manager-eu" # replace with correct project id
-$BACKEND_VERSION = "v0.0.3"
+$BACKEND_VERSION = "v0.0.3" # replace with next version
 docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:$BACKEND_VERSION ./backend/
 docker tag europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:$BACKEND_VERSION europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
 docker push europe-west3-docker.pkg.dev/$PROJECT_ID/dance-class-manager-eu-docker-repo/backend:latest
 ```
 2. cloud run image auf das backend:latest switchen
 3. TADAAAA backend erreichbar.
+
+## Frontend Deploy:
+1. staatische daten hochladen:
+```bash
+gsutil -m rsync -d -r ./frontend/ gs://dance-class-manager-eu-frontend/
+
+# -m = Parallel (schnell)
+# -d = Delete extraneous files
+# -r = Rekursiv
+```
