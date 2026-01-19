@@ -81,6 +81,10 @@ resource "google_cloud_run_v2_service" "backend_service" {
         value = var.database_name
       }
       env {
+        name  = "APP_CORS_ALLOWED_ORIGINS"
+        value = "https://${google_compute_global_address.frontend_ip.address}"
+      }
+      env {
         name = "DB_USER"
         value_source {
           secret_key_ref {
