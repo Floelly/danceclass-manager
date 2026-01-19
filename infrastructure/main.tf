@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 7.15"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~>4.1"
+    }
   }
   # Not added any remote state bucket for simplicity
 }
