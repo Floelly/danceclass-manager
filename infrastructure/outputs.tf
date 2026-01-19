@@ -21,3 +21,7 @@ output "subnet_details" {
     self_link  = google_compute_subnetwork.vpc_subnetwork.self_link
   }
 }
+
+output "frontend_url" {
+  value = "http://${google_compute_global_address.frontend_ip.address}"
+}
