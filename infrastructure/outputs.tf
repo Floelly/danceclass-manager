@@ -23,5 +23,5 @@ output "subnet_details" {
 }
 
 output "frontend_url" {
-  value = "http://${google_compute_global_address.frontend_ip.address}"
+  value = "https://${google_compute_global_address.frontend_ip.address}"
 }
