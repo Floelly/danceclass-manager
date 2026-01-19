@@ -84,7 +84,7 @@ variable "cloud_run_memory" {
 variable "cloud_run_cpu" {
   description = "Cloud Run CPU"
   type        = string
-  default     = "1"
+  default     = "1000m"
 }
 
 variable "cloud_run_min_instances" {
