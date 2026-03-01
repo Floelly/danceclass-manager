@@ -14,11 +14,11 @@ variable "region" {
 variable "gcp_services" {
   type = list(string)
   default = [
-    "compute.googleapis.com",
+    "iam.googleapis.com",
+    "sqladmin.googleapis.com",
     "vpcaccess.googleapis.com",
     "servicenetworking.googleapis.com",
     "secretmanager.googleapis.com",
-    "artifactregistry.googleapis.com",
     "run.googleapis.com",
   ]
 }
@@ -98,45 +98,3 @@ variable "cloud_run_max_instances" {
   type        = number
   default     = 5
 }
-
-
-
-
-
-# variable "availability_zones" {
-#   description = "Availability Zones für Multi-Zone Setup"
-#   type        = list(string)
-#   default     = ["europe-west3-a", "europe-west3-b", "europe-west3-c"]
-# }
-
-# # Kostenoptimierung: Minimale Ressourcen für MVP
-# variable "database_storage_gb" {
-#   description = "Cloud SQL Storage in GB"
-#   type        = number
-#   default     = 10
-# }
-
-# variable "backend_source_dir" {
-#   description = "Pfad zum Backend-Code relativ zu 'main.tf'"
-#   default     = "../backend"
-# }
-
-# # Storage
-# variable "storage_location" {
-#   description = "Cloud Storage Location"
-#   type        = string
-#   default     = "EU"
-# }
-
-# # Monitoring & Logging
-# variable "enable_monitoring" {
-#   description = "Enable Cloud Monitoring"
-#   type        = bool
-#   default     = true
-# }
-
-# variable "log_retention_days" {
-#   description = "Cloud Logging Retention (Tage)"
-#   type        = number
-#   default     = 30
-# }

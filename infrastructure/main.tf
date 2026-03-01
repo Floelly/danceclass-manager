@@ -21,9 +21,7 @@ provider "google" {
 
 resource "google_project_service" "enabled_apis" {
   for_each = toset(var.gcp_services)
-
   service = each.key
-
   # disable_on_destroy = false # for convenience
 }
 
